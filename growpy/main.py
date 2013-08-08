@@ -9,7 +9,7 @@ import os
 from growpy.core.collector import Collector
 from growpy.core.config import Config
 
-prefix = os.path.dirname(__file__)
+prefix = os.getcwd()
 BASE_DIRS = dict()
 BASE_DIRS['install'] = prefix
 BASE_DIRS['db'] = prefix + '/var/db/growpy'
