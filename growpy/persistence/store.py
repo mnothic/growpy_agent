@@ -5,6 +5,7 @@ __author__ = "theManda"
 
 from growpy.core.base import Singleton
 from growpy.persistence.orm import *
+from growpy.core.config import config
 
 
 class Store(Singleton):
@@ -16,16 +17,14 @@ class Store(Singleton):
         strConnect = 'sqlite:///delta.db'
 
         """
-
-        from growpy.main import BASE_DIRS, CFG
-        if CFG.get('database', 'provider') == 'sqlite':
-            strConnect = CFG.get('database', 'provider')
-            strConnect += '://' + BASE_DIRS['db'] + '/'
-            strConnect += CFG.get('database', 'dbstring')
-        else:
-            strConnect = CFG.get('database', 'provider')
+        if config['database']['provider'] == 'sqlite':
+            strConnect = config['database']['provider']
             strConnect += '://'
-            strConnect += CFG.get('database', 'dbstring')
+            strConnect += config['database']['dbstring']
+        else:
+            strConnect = config['database']['provider']
+            strConnect += '://'
+            strConnect += config['database']['dbstring']
 
         engine = create_engine(strConnect, echo=True)
         SessionFactory = sessionmaker(bind=engine)

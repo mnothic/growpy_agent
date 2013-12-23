@@ -81,7 +81,7 @@ class FSCollector(object):
         :return: list
         """
         df = None
-        cmd = 'df -k'
+        cmd = 'bdf'
         try:
             stdin, stdout, stderr = self._ssh.exec_command(cmd)
             df = stdout.read()
