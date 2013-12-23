@@ -13,17 +13,17 @@ from growpy.core.config import config
 demonize = False
 
 if __name__ == '__main__':
-    agent = Collector(config['core']['pidfile'])
+    agent = Collector()
     try:
         opts, args = getopt(sys.argv[1:], "c:d")
     except GetoptError as err:
         # print help information and exit:
         print(str(err))
-    for o, a in opts:
-        if o == 'd':
+    for flag, value in opts:
+        if flag == 'd':
             demonize = True
-        if o == 'c':
-            cmd = a
+        if flag == 'c':
+            cmd = value
     if demonize:
         if 'start' == cmd:
             agent.start()

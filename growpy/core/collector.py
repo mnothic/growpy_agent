@@ -15,6 +15,9 @@ from growpy.core.daemon import Daemon
 
 class Collector(Daemon):
 
+    def __init__(self):
+        pass
+
     def main(self):
         store = Store()
         for n in store.get_node_list():

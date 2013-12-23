@@ -8,27 +8,26 @@ from growpy.persistence.orm import *
 from growpy.core.config import config
 
 
-class Store(Singleton):
+class Store():
 
     session = None
 
     def __init__(self):
         """
         strConnect = 'sqlite:///delta.db'
-
         """
         if config['database']['provider'] == 'sqlite':
-            strConnect = config['database']['provider']
-            strConnect += '://'
-            strConnect += config['database']['dbstring']
+            str_connect = config['database']['provider']
+            str_connect += '://'
+            str_connect += config['database']['dbstring']
         else:
-            strConnect = config['database']['provider']
-            strConnect += '://'
-            strConnect += config['database']['dbstring']
+            str_connect = config['database']['provider']
+            str_connect += '://'
+            str_connect += config['database']['dbstring']
 
-        engine = create_engine(strConnect, echo=True)
-        SessionFactory = sessionmaker(bind=engine)
-        self.session = SessionFactory()
+        ng = create_engine(str_connect, echo=True)
+        session_factory = sessionmaker(bind=ng)
+        self.session = session_factory()
         Base.metadata.create_all(engine, checkfirst=True)
         self.session.commit()
 
