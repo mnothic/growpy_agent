@@ -22,8 +22,8 @@ class Collector(Daemon):
         store = Store()
         for n in store.get_node_list():
             fsc = FSCollector()
-            fsc.sshConnect(n)
-            fsc.collectingNodeInfo(n)
+            if fsc.sshConnect(n) is not None:
+                fsc.collectingNodeInfo(n)
 
     def run(self):
         while True:
@@ -49,10 +49,16 @@ class FSCollector(object):
             self._ssh.connect(Node.node_name, username=Node.node_login, password=Node.node_password)
         except BadHostKeyException as sshErr:
             print("ssh error: {}".format(sshErr))
+            return None
         except AuthenticationException as sshErr:
             print("ssh error: {}".format(sshErr))
+            return None
         except SSHException as sshErr:
             print("ssh error {}".format(sshErr))
+            return None
+        except OSError as socketError:
+            print("ssh error {}".format(socketError))
+            return None
         return self
 
     def setOSName(self):
@@ -84,7 +90,7 @@ class FSCollector(object):
         :return: list
         """
         df = None
-        cmd = 'bdf'
+        cmd = 'df'
         try:
             stdin, stdout, stderr = self._ssh.exec_command(cmd)
             df = stdout.read()
@@ -92,7 +98,7 @@ class FSCollector(object):
             print('ssh error')
         fsList = []
         i = 0
-        for rs in df.split('\n'):
+        for rs in str(df).split('\n'):
             row = rs.split()
             if i > 0 and len(row) > 0:
                 fs = FS(row[0], row[5], row[2], row[3])

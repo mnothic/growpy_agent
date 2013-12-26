@@ -3,7 +3,6 @@ __revision__ = "$"
 __version__ = "$"
 __author__ = "theManda"
 
-from growpy.core.base import Singleton
 from growpy.persistence.orm import *
 from growpy.core.config import config
 
@@ -18,17 +17,17 @@ class Store():
         """
         if config['database']['provider'] == 'sqlite':
             str_connect = config['database']['provider']
-            str_connect += '://'
+            str_connect += ':///'
             str_connect += config['database']['dbstring']
         else:
             str_connect = config['database']['provider']
-            str_connect += '://'
+            str_connect += ':///'
             str_connect += config['database']['dbstring']
 
         ng = create_engine(str_connect, echo=True)
         session_factory = sessionmaker(bind=ng)
         self.session = session_factory()
-        Base.metadata.create_all(engine, checkfirst=True)
+        Base.metadata.create_all(ng, checkfirst=True)
         self.session.commit()
 
     def save_node(self, Node):

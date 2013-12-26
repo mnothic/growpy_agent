@@ -79,9 +79,14 @@ if __name__ == '__main__':
         connection.add(n)
         connection.commit()
         connection.refresh(n)
-    fs = connection.query(Filesystem).filter(Filesystem.node_id==n.node_id,
-                                             Filesystem.fs_name=='/dev/mapper/vg_sys-lv_demo').all()
-    fs = fs[0]
+    try:
+        fs = connection.query(Filesystem).filter(Filesystem.node_id==n.node_id,
+                                                 Filesystem.fs_name=='/dev/mapper/vg_sys-lv_demo').all()
+        fs = fs[0]
+    except IndexError as e:
+        print("{}".format(str(e)))
+        fs = None
+
     if fs is None:
         fs = Filesystem(n.node_id, '/dev/mapper/vg_sys-lv_demo', '/demo')
         connection.add(fs)
@@ -90,3 +95,5 @@ if __name__ == '__main__':
     s = Status(fs_id=fs.fs_id, size=100, used=30)
     connection.add(s)
     connection.commit()
+    for n in connection.query(Node).all():
+        print(n.node_name)
