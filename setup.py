@@ -13,7 +13,8 @@ setup(name='Growpy',
       url='http://github.com/mnothic/fsgrowpy',
       packages=['fsgrowpy'],
       install_requires=['paramiko>=1.7',
-                        'SQLAlchemy>=0.8'],
+                        'SQLAlchemy>=0.8',
+                        'APScheduler>=2.1'],
       license='BSD',
       )
 

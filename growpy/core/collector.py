@@ -10,13 +10,14 @@ from paramiko import BadHostKeyException
 from paramiko import AuthenticationException
 from growpy.persistence.store import Store
 from growpy.core.base import FS
-from growpy.core.daemon import Daemon
+from growpy.core.config import config
+from apscheduler.scheduler import Scheduler
 
 
-class Collector(Daemon):
+class Collector():
 
-    def __init__(self):
-        pass
+    scheduler = Scheduler(config['scheduler'])
+    scheduler.start()
 
     def main(self):
         store = Store()
@@ -24,11 +25,6 @@ class Collector(Daemon):
             fsc = FSCollector()
             if fsc.sshConnect(n) is not None:
                 fsc.collectingNodeInfo(n)
-
-    def run(self):
-        while True:
-            self.main()
-            sleep(3)
 
 
 class FSCollector(object):
@@ -48,16 +44,16 @@ class FSCollector(object):
             self._ssh.set_missing_host_key_policy(AutoAddPolicy())
             self._ssh.connect(Node.node_name, username=Node.node_login, password=Node.node_password)
         except BadHostKeyException as sshErr:
-            print("ssh error: {}".format(sshErr))
+            print("SSH INFO: {}".format(sshErr))
             return None
         except AuthenticationException as sshErr:
-            print("ssh error: {}".format(sshErr))
+            print("SSH INFO: {}".format(sshErr))
             return None
         except SSHException as sshErr:
-            print("ssh error {}".format(sshErr))
+            print("SSH INFO: {}".format(sshErr))
             return None
         except OSError as socketError:
-            print("ssh error {}".format(socketError))
+            print("Socket INFO: {}".format(socketError))
             return None
         return self
 

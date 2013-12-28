@@ -66,7 +66,6 @@ class Status(Base):
         self.status_date = date.today()
 
 
-
 if __name__ == '__main__':
     strConnect = 'sqlite:///delta.db'
     engine = create_engine(strConnect, echo=True)

@@ -4,37 +4,31 @@ __version__ = "$"
 __author__ = "theManda"
 
 import sys
-import os
 from getopt import getopt, GetoptError
-from time import sleep
 from growpy.core.collector import Collector
 from growpy.core.config import config
+from apscheduler.scheduler import Scheduler
 
-demonize = False
+daemon = False
 
 if __name__ == '__main__':
     agent = Collector()
     try:
-        opts, args = getopt(sys.argv[1:], "c:d")
+        opts, args = getopt(sys.argv[1:], "d")
     except GetoptError as err:
         # print help information and exit:
         print(str(err))
     for flag, value in opts:
         if flag == 'd':
-            demonize = True
-        if flag == 'c':
-            cmd = value
-    if demonize:
-        if 'start' == cmd:
-            agent.start()
-        elif 'stop' == cmd:
-            agent.stop()
-        elif 'restart' == cmd:
-            agent.restart()
-        else:
-            print('usage: {} -d -c start|stop|restart'.format(sys.argv[0]))
-            sys.exit(2)
+            daemon = True
+    if daemon:
+        sched = Scheduler(standalone=False, daemonic=True)
+        sched.add_cron_job(agent.main,
+                           month=config['scheduler']['month'],
+                           day=config['scheduler']['day'],
+                           hour=config['scheduler']['hour'],)
+        sched.start()
     else:
-        while True:
-            agent.main()
-            sleep(3)
+        sched = Scheduler(standalone=True)
+        sched.add_cron_job(agent.main, minute='*')
+        sched.start()

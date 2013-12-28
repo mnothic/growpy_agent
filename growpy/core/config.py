@@ -11,5 +11,11 @@ config = {
     'database': {
         'dbstring': '/home/themanda/PycharmProjects/webfront/delta.db',
         'provider': 'sqlite'
+    },
+    'scheduler': {
+        'daemon': False,
+        'month': '*',
+        'day': '1',
+        'hour': '0'
     }
 }
