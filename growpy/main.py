@@ -31,4 +31,5 @@ if __name__ == '__main__':
     else:
         sched = Scheduler(standalone=True)
         sched.add_cron_job(agent.main, minute='*')
+        sched.print_jobs()
         sched.start()

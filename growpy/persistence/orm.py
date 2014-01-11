@@ -35,7 +35,7 @@ class Filesystem(Base):
     __tablename__ = 'filesystem'
     fs_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     node_id = Column(Integer, ForeignKey('node.node_id'))
-    fs_name = Column(String, unique=True, nullable=False)
+    fs_name = Column(String, nullable=False)
     fs_pmount = Column(String, nullable=False)
     
     node = relationship('Node')

@@ -44,16 +44,16 @@ class FSCollector(object):
             self._ssh.set_missing_host_key_policy(AutoAddPolicy())
             self._ssh.connect(Node.node_name, username=Node.node_login, password=Node.node_password)
         except BadHostKeyException as sshErr:
-            print("SSH INFO: {}".format(sshErr))
+            print("SSH INFO: {} {}".format(Node.node_name, sshErr))
             return None
         except AuthenticationException as sshErr:
-            print("SSH INFO: {}".format(sshErr))
+            print("SSH INFO: {} {}".format(Node.node_name, sshErr))
             return None
         except SSHException as sshErr:
-            print("SSH INFO: {}".format(sshErr))
+            print("SSH INFO: {} {}".format(Node.node_name, sshErr))
             return None
         except OSError as socketError:
-            print("Socket INFO: {}".format(socketError))
+            print("SSH INFO: {} {}".format(Node.node_name, socketError))
             return None
         return self
 
@@ -89,12 +89,12 @@ class FSCollector(object):
         cmd = 'df'
         try:
             stdin, stdout, stderr = self._ssh.exec_command(cmd)
-            df = stdout.read()
+            df = stdout.read().decode('utf-8')
         except SSHException:
             print('ssh error')
         fsList = []
         i = 0
-        for rs in str(df).split('\n'):
+        for rs in df.split('\n'):
             row = rs.split()
             if i > 0 and len(row) > 0:
                 fs = FS(row[0], row[5], row[2], row[3])
@@ -112,7 +112,7 @@ class FSCollector(object):
         cmd = 'bdf'
         try:
             stdin, stdout, stderr = self._ssh.exec_command(cmd)
-            df = stdout.read()
+            df = stdout.read().decode('utf-8')
         except SSHException:
             print('ssh error')
         fsList = []

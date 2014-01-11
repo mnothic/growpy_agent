@@ -15,6 +15,5 @@ setup(name='Growpy',
       install_requires=['paramiko>=1.7',
                         'SQLAlchemy>=0.8',
                         'APScheduler>=2.1'],
-      license='BSD',
-      )
+      license='BSD')
 
