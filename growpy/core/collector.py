@@ -96,8 +96,15 @@ class FSCollector(object):
         i = 0
         for rs in df.split('\n'):
             row = rs.split()
-            if i > 0 and len(row) > 0:
-                fs = FS(row[0], row[5], row[1], row[2])
+            if 'Filesystem' in row[0][0:11]:
+                continue
+            if len(row) > 0:
+                if len(row) == 1:
+                    aux = row[0]
+                elif len(row) == 5:
+                    fs = FS(aux, row[4], row[0], row[1])
+                else:
+                    fs = FS(row[0], row[5], row[1], row[2])
                 if not self._existFS(fsList, fs):
                     fsList.append(fs)
             i += 1
