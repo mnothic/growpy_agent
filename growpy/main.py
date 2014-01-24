@@ -22,14 +22,14 @@ if __name__ == '__main__':
         if flag == 'd':
             daemon = True
     if daemon:
-        sched = Scheduler(standalone=False, daemonic=True)
-        sched.add_cron_job(agent.main,
-                           month=config['scheduler']['month'],
-                           day=config['scheduler']['day'],
-                           hour=config['scheduler']['hour'],)
-        sched.start()
+        scheduler = Scheduler(standalone=False, daemonic=True)
+        scheduler.add_cron_job(agent.main,
+                               month=config['scheduler']['month'],
+                               day=config['scheduler']['day'],
+                               hour=config['scheduler']['hour'],)
+        scheduler.start()
     else:
-        sched = Scheduler(standalone=True)
-        sched.add_cron_job(agent.main, minute='*', day='*', hour='16')
-        sched.print_jobs()
-        sched.start()
+        scheduler = Scheduler(standalone=True)
+        scheduler.add_cron_job(agent.main, minute='*', day='*', hour='16')
+        scheduler.print_jobs()
+        scheduler.start()
