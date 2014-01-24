@@ -30,6 +30,6 @@ if __name__ == '__main__':
         scheduler.start()
     else:
         scheduler = Scheduler(standalone=True)
-        scheduler.add_cron_job(agent.main, minute='*', day='*', hour='16')
+        scheduler.add_cron_job(agent.main, minute='*', day='*', hour='17')
         scheduler.print_jobs()
         scheduler.start()
