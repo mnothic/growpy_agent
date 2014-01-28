@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+OS=$(uname -s)
+
+if [[ $OS == "FreeBSD" ]]; then
+    . /etc/rc.subr
+    user="growpy"
+    group="growpy"
+    name="growpy"
+    growpy_user=${growpy_user:=${user}}
+    growpy_group=${growpy_group:=${group}}
+    growpy_flags=${growpy_flags:=-d}
+
+    rcvar=`set_rcvar`
+
+    command="/usr/local/bin/${name}"
+
+    load_rc_config $name
+    run_rc_command "$1"
+else
+    # source function library
+    . /etc/rc.d/init.d/functions
+
+fi
