@@ -16,9 +16,9 @@ class Node(Base):
     __tablename__ = 'node'
     node_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     node_name = Column(String, unique=True, nullable=False)
-    node_os_name = Column(String, unique=True, nullable=False)
-    node_login = Column(String, unique=True, nullable=False)
-    node_password = Column(String, unique=True, nullable=False)
+    node_os_name = Column(String, unique=False, nullable=False)
+    node_login = Column(String, unique=False, nullable=False)
+    node_password = Column(String, unique=False, nullable=False)
 
     def __init__(self, name, os, login, passwd):
         self.node_name = name
@@ -67,7 +67,7 @@ class Status(Base):
 
 
 if __name__ == '__main__':
-    strConnect = 'sqlite:///delta.db'
+    strConnect = 'sqlite:///growpy.db'
     engine = create_engine(strConnect, echo=True)
     Session = sessionmaker(bind=engine)
     connection = Session()

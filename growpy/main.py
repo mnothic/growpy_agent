@@ -7,21 +7,26 @@ __author__ = "theManda"
 import sys
 from getopt import getopt, GetoptError
 from growpy.core.collector import Collector
-from growpy.core.config import config
+from growpy.core.config import Config
 from apscheduler.scheduler import Scheduler
 
+config = Config.get_config()
+
 daemon = False
+process = False
 
 if __name__ == '__main__':
     agent = Collector()
     try:
-        opts, args = getopt(sys.argv[1:], "d")
+        opts, args = getopt(sys.argv[1:], "dp")
     except GetoptError as err:
         # print help information and exit:
         print(str(err))
     for flag, value in opts:
-        if flag == 'd':
+        if flag == '-d':
             daemon = True
+        if flag == '-p':
+            process = True
     if daemon:
         scheduler = Scheduler(standalone=False, daemonic=True)
         scheduler.add_cron_job(agent.main,
@@ -29,7 +34,11 @@ if __name__ == '__main__':
                                day=config['scheduler']['day'],
                                hour=config['scheduler']['hour'],)
         scheduler.start()
+    elif process:
+        print("Initializing growpy without scheduler")
+        agent.main()
     else:
+        print("Initializing Scheduler standalone")
         scheduler = Scheduler(standalone=True)
         scheduler.add_cron_job(agent.main, minute='*', day='*', hour='17')
         scheduler.print_jobs()

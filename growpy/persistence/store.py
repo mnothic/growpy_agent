@@ -4,7 +4,9 @@ __version__ = "$"
 __author__ = "theManda"
 
 from growpy.persistence.orm import *
-from growpy.core.config import config
+from growpy.core.config import Config
+
+config = Config.get_config()
 
 
 class Store():
@@ -13,7 +15,7 @@ class Store():
 
     def __init__(self):
         """
-        strConnect = 'sqlite:///delta.db'
+        strConnect = 'sqlite:///growpy.db'
         """
         if config['database']['provider'] == 'sqlite':
             str_connect = config['database']['provider']

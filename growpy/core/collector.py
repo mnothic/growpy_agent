@@ -2,7 +2,6 @@ __copyright__ = "Copyright (C) 2013 Jorge A. Medina"
 __revision__ = "$"
 __version__ = "$"
 __author__ = "theManda"
-from time import sleep
 from paramiko import SSHClient
 from paramiko import AutoAddPolicy
 from paramiko import SSHException
@@ -10,14 +9,12 @@ from paramiko import BadHostKeyException
 from paramiko import AuthenticationException
 from growpy.persistence.store import Store
 from growpy.core.base import FS
-from growpy.core.config import config
-from apscheduler.scheduler import Scheduler
+from growpy.core.config import Config
+
+config = Config.get_config()
 
 
 class Collector():
-
-    scheduler = Scheduler(config['scheduler'])
-    scheduler.start()
 
     def main(self):
         store = Store()
