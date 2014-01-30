@@ -20,6 +20,8 @@ class Config(Singleton):
     try:
         cfg = parser.ConfigParser()
         cfg.read(growpy_etc + '/growpy.conf')
+        cfg.read('/usr/local/etc/growpy.conf')
+        cfg.read('/etc/growpy.conf')
     except parser.Error as e:
         print(e.message())
 
@@ -28,11 +30,8 @@ class Config(Singleton):
             'pidfile': 'growpy.pid'
         },
         'database': {
-            'dbstring': growpy_data + '/growpy.db',
             'provider': 'sqlite',
-            'user': '',
-            'password': '',
-            'host': ''
+            'dbstring': growpy_data + '/growpy.db'
         },
         'scheduler': {
             'daemon': False,
@@ -43,14 +42,18 @@ class Config(Singleton):
     }
 
     def __init__(self):
-        for key, value in self.config.items():
-            for val in value.items():
+        for section, value in self.config.items():
+            for option in value.keys():
                 try:
-                    cfg_val = self.cfg.get(key, val)
+                    cfg_val = self.cfg.get(str(section), str(option))
                 except(self.parser.NoSectionError, self.parser.NoOptionError) as e:
                     print(e.message)
                     continue
-                self.config[key][val] = cfg_val
+                self.config[section][option] = cfg_val
 
     def get_config(self):
         return self.config
+print("LOAD CONFIG")
+cfg = Config()
+config = cfg.get_config()
+print(config)

@@ -4,9 +4,7 @@ __version__ = "$"
 __author__ = "theManda"
 
 from growpy.persistence.orm import *
-from growpy.core.config import Config
-
-config = Config.get_config()
+from growpy.core.config import config
 
 
 class Store():

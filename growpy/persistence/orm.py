@@ -4,8 +4,8 @@ __version__ = "$"
 __author__ = "theManda"
 
 from sqlalchemy import Column, ForeignKey, DateTime, Integer, String
-from sqlalchemy import create_engine, exc, exists
-from sqlalchemy.orm import sessionmaker, synonym, relationship
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import date
 

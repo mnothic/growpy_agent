@@ -9,9 +9,6 @@ from paramiko import BadHostKeyException
 from paramiko import AuthenticationException
 from growpy.persistence.store import Store
 from growpy.core.base import FS
-from growpy.core.config import Config
-
-config = Config.get_config()
 
 
 class Collector():

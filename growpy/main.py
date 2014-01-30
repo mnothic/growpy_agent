@@ -7,10 +7,9 @@ __author__ = "theManda"
 import sys
 from getopt import getopt, GetoptError
 from growpy.core.collector import Collector
-from growpy.core.config import Config
+from growpy.core.config import config
 from apscheduler.scheduler import Scheduler
 
-config = Config.get_config()
 
 daemon = False
 process = False
