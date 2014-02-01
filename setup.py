@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-"""
-the install_requieres only works with setuptools and I need more knowledge
-because not always be installed on systems de built-in package is distutils.
-"""
+
 from distutils.core import setup
 
 setup(name='Growpy',

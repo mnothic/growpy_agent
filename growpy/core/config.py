@@ -53,7 +53,6 @@ class Config(Singleton):
 
     def get_config(self):
         return self.config
-print("LOAD CONFIG")
+
 cfg = Config()
 config = cfg.get_config()
-print(config)

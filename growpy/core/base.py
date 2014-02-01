@@ -69,50 +69,50 @@ class Node(object):
     def __init__(self, **kwargs):
         for key in kwargs:
             if key == 'id':
-                self.setId(kwargs[key])
+                self.set_id(kwargs[key])
             if key == 'name':
-                self.setName(kwargs[key])
+                self.set_name(kwargs[key])
             if key == 'osname':
-                self.setOSName(kwargs[key])
+                self.set_os(kwargs[key])
             if key == 'port':
-                self.setPort(kwargs[key])
+                self.set_port(kwargs[key])
             if key == 'user':
-                self.setUser(kwargs[key])
+                self.set_user(kwargs[key])
             if key == 'password':
-                self.setPassword(kwargs[key])
+                self.set_password(kwargs[key])
 
-    def setId(self, node_id):
+    def set_id(self, node_id):
         self._id = node_id
 
-    def getId(self):
+    def get_id(self):
         return self._id
 
-    def setOSName(self, os):
+    def set_os(self, os):
         self._os = os
 
-    def getOSName(self):
+    def get_os(self):
         return self._os
 
-    def setName(self, name):
+    def set_name(self, name):
         self._name = name
 
-    def getName(self):
+    def get_name(self):
         return self._name
 
-    def setPort(self, port):
+    def set_port(self, port):
         self._port = port
 
-    def getPort(self):
+    def get_port(self):
         return self._port
 
-    def setUser(self, user):
+    def set_user(self, user):
         self._user = user
 
-    def getUser(self):
+    def get_user(self):
         return self._user
 
-    def setPassword(self, port):
+    def set_password(self, port):
         self._password = port
 
-    def getPassword(self):
+    def get_password(self):
         return self._password
