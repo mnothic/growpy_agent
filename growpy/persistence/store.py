@@ -24,7 +24,7 @@ class Store():
             str_connect += ':///'
             str_connect += config['database']['dbstring']
 
-        ng = create_engine(str_connect, echo=True)
+        ng = create_engine(str_connect, echo=config['core']['debug'])
         session_factory = sessionmaker(bind=ng)
         self.session = session_factory()
         Base.metadata.create_all(ng, checkfirst=True)

@@ -5,6 +5,7 @@ __version__ = "$"
 __author__ = "theManda"
 
 import sys
+from time import sleep
 from getopt import getopt, GetoptError
 from growpy.core.collector import Collector
 from growpy.core.config import config
@@ -35,7 +36,9 @@ if __name__ == '__main__':
         scheduler.start()
     elif process:
         print("Initializing growpy without scheduler")
-        agent.main()
+        while True:
+            agent.main()
+            sleep(1)
     else:
         print("Initializing Scheduler standalone")
         scheduler = Scheduler(standalone=True)

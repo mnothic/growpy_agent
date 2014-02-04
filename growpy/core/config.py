@@ -27,7 +27,8 @@ class Config(Singleton):
 
     config = {
         'core': {
-            'pidfile': 'growpy.pid'
+            'pidfile': 'growpy.pid',
+            'debug': True
         },
         'database': {
             'provider': 'sqlite',
@@ -49,6 +50,13 @@ class Config(Singleton):
                 except(self.parser.NoSectionError, self.parser.NoOptionError) as e:
                     print(e.message)
                     continue
+                if option == 'debug':
+                    if cfg_val == 'True':
+                        cfg_val = True
+                    elif cfg_val == 'False':
+                        cfg_val = False
+                    else:
+                        print("Parse error debug flag must be True or False")
                 self.config[section][option] = cfg_val
 
     def get_config(self):

@@ -47,8 +47,8 @@ class FSCollector(object):
         except SSHException as ssh_error:
             print("SSH INFO: {} {}".format(Node.node_name, ssh_error))
             return None
-        except OSError as socketError:
-            print("SSH INFO: {} {}".format(Node.node_name, socketError))
+        except OSError as ssh_error:
+            print("SSH INFO: {} {}".format(Node.node_name, ssh_error))
             return None
         return self
 
