@@ -9,8 +9,6 @@ from growpy.core.config import config
 
 class Store():
 
-    session = None
-
     def __init__(self):
         """
         strConnect = 'sqlite:///growpy.db'
