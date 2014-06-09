@@ -36,9 +36,12 @@ if __name__ == '__main__':
         scheduler.start()
     elif process:
         print("Initializing growpy without scheduler")
+        import time
         while True:
+            start = time.time()
             agent.main()
-            sleep(1)
+            print("Threads Time Elapsed: ", time.time() - start)
+            sleep(60)
     else:
         print("Initializing Scheduler standalone")
         scheduler = Scheduler(standalone=True)

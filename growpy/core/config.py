@@ -28,7 +28,8 @@ class Config(Singleton):
     config = {
         'core': {
             'pidfile': 'growpy.pid',
-            'debug': True
+            'debug': True,
+            'aes_key': '9d8j6mfwy4n7c8!nffr'
         },
         'database': {
             'provider': 'sqlite',

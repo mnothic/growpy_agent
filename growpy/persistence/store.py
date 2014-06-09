@@ -30,9 +30,9 @@ class Store():
         Base.metadata.create_all(ng, checkfirst=True)
         self.session.commit()
 
-    def save_node(self, Node):
-        if Node is not None:
-            self.session.add(Node)
+    def save_node(self, node):
+        if node is not None:
+            self.session.add(node)
             self.session.commit()
 
     def save_fs(self, node, fs):
@@ -65,6 +65,5 @@ class Store():
     def get_node_list(self):
         return self.session.query(Node).all()
 
-
-if __name__ == '__main__':
-    store = Store()
+    def get_fs_list(self, node):
+        return self.session.query(Filesystem).filter(Filesystem.node_id == node.node_id).all()
