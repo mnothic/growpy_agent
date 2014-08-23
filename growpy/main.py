@@ -9,9 +9,8 @@ from time import sleep
 from getopt import getopt, GetoptError
 from growpy.core.collector import Collector
 from growpy.core.config import config
-from apscheduler.scheduler import Scheduler
-
-
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 daemon = False
 process = False
 
@@ -28,11 +27,14 @@ if __name__ == '__main__':
         if flag == '-p':
             process = True
     if daemon:
-        scheduler = Scheduler(standalone=False, daemonic=True)
-        scheduler.add_cron_job(agent.main,
-                               month=config['scheduler']['month'],
-                               day=config['scheduler']['day'],
-                               hour=config['scheduler']['hour'],)
+        scheduler = BackgroundScheduler(daemon=True, timezone='utc')
+        scheduler.add_job(
+            agent.main,
+            'cron',
+            month=config['scheduler']['month'],
+            day=config['scheduler']['day'],
+            hour=config['scheduler']['hour']
+        )
         scheduler.start()
     elif process:
         print("Initializing growpy without scheduler")
@@ -44,7 +46,6 @@ if __name__ == '__main__':
             sleep(60)
     else:
         print("Initializing Scheduler standalone")
-        scheduler = Scheduler(standalone=True)
-        scheduler.add_cron_job(agent.main, minute='*', day='*', hour='17')
-        scheduler.print_jobs()
+        scheduler = BlockingScheduler(timezone='utc')
+        scheduler.add_job(agent.main, 'cron', hour=0, minute=0)
         scheduler.start()
