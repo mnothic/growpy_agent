@@ -23,7 +23,6 @@ class Collector():
 class FSCollector(Thread):
 
     def __init__(self, node):
-        Thread.__init__(self)
         self.cypher = AESCipher(config['core']['aes_key'])
         self.node = node
         self.node.node_password = self.cypher.decrypt(self.node.node_password)
@@ -73,7 +72,7 @@ class FSCollector(Thread):
         try:
             stdin, stdout, stderr = self._ssh.exec_command(cmd)
             df = stdout.read().decode('utf-8')
-            self.__ssh.close()
+            self._ssh.close()
         except SSHException:
             print('ssh error')
         fs_list = []

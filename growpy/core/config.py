@@ -1,6 +1,6 @@
 __copyright__ = "Copyright (C) 2013 Jorge A. Medina"
-__revision__ = "$"
-__version__ = "$"
+__revision__ = "1"
+__version__ = "1.0"
 __author__ = "theManda"
 import os
 from growpy.core.base import Singleton
