@@ -5,16 +5,18 @@ __version__ = "1.0"
 __author__ = "theManda"
 
 import sys
-from time import sleep
+from time import sleep, time
 from getopt import getopt, GetoptError
 from growpy.core.collector import Collector
+from growpy.core.daemon import Daemon
 from growpy.core.config import config
 from apscheduler.schedulers.blocking import BlockingScheduler
+import os
 daemon = False
 process = False
 
+
 if __name__ == '__main__':
-    agent = Collector()
     try:
         opts, args = getopt(sys.argv[1:], "dp")
     except GetoptError as err:
@@ -26,25 +28,19 @@ if __name__ == '__main__':
         if flag == '-p':
             process = True
     if daemon:
-        scheduler = BlockingScheduler(timezone='utc')
-        scheduler.add_job(
-            agent.main,
-            'cron',
-            month=config['scheduler']['month'],
-            day=config['scheduler']['day'],
-            hour=config['scheduler']['hour']
-        )
-        scheduler.start()
+        detach = Daemon(config['core']['pidfile'])
+        detach.start()
         print("Exit main thread")
     elif process:
+        agent = Collector()
         print("Initializing growpy without scheduler")
-        import time
         while True:
-            start = time.time()
+            start = time()
             agent.main()
-            print("Threads Time Elapsed: {}", time.time() - start)
+            print("Threads Time Elapsed: {}", time() - start)
             sleep(60)
     else:
+        agent = Collector()
         print("Initializing Scheduler standalone")
         scheduler = BlockingScheduler(timezone='utc')
         scheduler.add_job(agent.main, 'cron', hour='*', minute='*/5')
