@@ -27,6 +27,7 @@ class FSCollector(Thread):
         self.node = node
         self.node.node_password = self.cypher.decrypt(self.node.node_password)
         self._ssh = SSHClient()
+        Thread.__init__(self, name=node.node_name)
 
     def run(self):
         if self.ssh_connect() is not None:
@@ -102,11 +103,9 @@ class FSCollector(Thread):
         """
         if len(fs_list) == 0:
             return False
-
         for fs_instance in fs_list:
-            if fs_instance.get_name() == fs.get_name():
+            if fs_instance.name == fs.name:
                 return True
-
         return False
 
     def set_fs_list(self, fs_list):
