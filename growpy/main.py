@@ -11,7 +11,7 @@ from growpy.core.collector import Collector
 from growpy.core.daemon import Daemon
 from growpy.core.config import config
 from apscheduler.schedulers.blocking import BlockingScheduler
-import os
+
 daemon = False
 process = False
 
