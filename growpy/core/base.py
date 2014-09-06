@@ -7,9 +7,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 
-class Singleton(object):
-
-    _instance = None
+class Singleton():
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -40,7 +38,8 @@ class AESCipher:
     def _pad(self, s):
         return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
 
-    def _unpad(self, s):
+    @staticmethod
+    def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
 
