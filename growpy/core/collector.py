@@ -13,7 +13,7 @@ from growpy.core.config import config
 class Collector():
 
     @classmethod
-    def main(self):
+    def main(cls):
         store = Store()
         for n in store.get_node_list():
             fsc = FSCollector(n)
@@ -23,7 +23,7 @@ class Collector():
 class FSCollector(Thread):
 
     def __init__(self, node):
-        self.cypher = AESCipher(config['core']['aes_key'])
+        self.cypher = AESCipher(config['core']['aes_keey'])
         self.node = node
         self.node.node_password = self.cypher.decrypt(self.node.node_password)
         self._ssh = SSHClient()
@@ -97,7 +97,8 @@ class FSCollector(Thread):
             i += 1
         return fs_list
 
-    def _fs_exist(self, fs_list, fs):
+    @staticmethod
+    def _fs_exist(fs_list, fs):
         """
         Check for a existent fs
         """
