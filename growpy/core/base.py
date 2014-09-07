@@ -7,12 +7,17 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 
-class Singleton():
+# works in Python 2 & 3
+class _Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(_Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
-        return cls._instance
+
+class Singleton(_Singleton('SingletonMeta', (object,), {})): pass
+
 
 
 class AESCipher:
