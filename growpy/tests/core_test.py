@@ -1,9 +1,10 @@
 import unittest
+
 from growpy.core.base import AESCipher
 from growpy.core.base import Singleton
 
 
-class TestAESCipher(unittest.TestCase):
+class TestCore(unittest.TestCase):
 
     def test_aescipher(self):
         print("testeando aescipher...")
@@ -15,20 +16,19 @@ class TestAESCipher(unittest.TestCase):
         self.assertNotEqual(mesg, secret, "must be different but are equals")
         self.assertEqual(cipher.decrypt(secret), mesg, "must be equal but are different")
 
-
-class TestSingle(Singleton):
-    def __init__(self, name):
-        self.name = name
-        self.address = hex(id(self))
-
-
-class TestSingleton(unittest.TestCase):
-
     def test_singleton(self):
         print("test singleton")
-        a = TestSingle()
-        b = TestSingle()
+        a = TestSingle("A")
+        b = TestSingle("C")
         b.name = "B"
         print(a.address, b.address)
         self.assertEqual(a.name, "B", "a.name must be B")
-        self.assertEqual(a.address, b.address, "a is: {} and b is: {}".format(a.address,b.address))
+        self.assertEqual(a.address, b.address, "a is: {} and b is: {}".format(a.address, b.address))
+
+
+class TestSingle(metaclass=Singleton):
+
+    def __init__(self, name=None):
+        self.name = name
+        self.address = hex(id(self))
+

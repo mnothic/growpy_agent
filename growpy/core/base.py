@@ -7,20 +7,20 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 
-# works in Python 2 & 3
-class _Singleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(_Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+class Singleton(type):
 
+    def __init__(cls, name, bases, dic):
+        super(Singleton, cls).__init__(name, bases, dic)
+        cls.instance = None
 
-class Singleton(_Singleton('SingletonMeta', (object,), {})): pass
-
+    def __call__(cls, *args, **kw):
+        if cls.instance is None:
+            cls.instance = super(Singleton, cls).__call__(*args, **kw)
+        return cls.instance
 
 
 class AESCipher:
+
     def __init__(self, key):
         self.bs = 32
         if len(key) >= 32:
