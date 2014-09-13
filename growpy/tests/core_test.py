@@ -8,9 +8,9 @@ class TestCore(unittest.TestCase):
 
     def test_aescipher(self):
         print("testeando aescipher...")
-        aes_key = '9d8j6mfwy4n7c8!nffr'
+        aes_key = 'basura'
         cipher = AESCipher(aes_key)
-        mesg = "secret"
+        mesg = "passphrase"
         secret = cipher.encrypt(mesg)
         print("hash of {} is: {}".format(mesg, secret))
         self.assertNotEqual(mesg, secret, "must be different but are equals")

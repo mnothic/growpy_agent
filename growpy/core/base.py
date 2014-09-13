@@ -3,6 +3,7 @@ __revision__ = "1"
 __version__ = "1.0"
 __author__ = "theManda"
 import base64
+import hashlib
 from Crypto import Random
 from Crypto.Cipher import AES
 
@@ -23,10 +24,7 @@ class AESCipher:
 
     def __init__(self, key):
         self.bs = 32
-        if len(key) >= 32:
-            self.key = key[:32]
-        else:
-            self.key = self._pad(key)
+        self.key = hashlib.sha256(key.encode()).digest()
 
     def encrypt(self, raw):
         raw = self._pad(raw)
