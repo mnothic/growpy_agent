@@ -6,7 +6,7 @@ import os
 from growpy.core.base import Singleton
 
 
-class Config(Singleton):
+class Config(metaclass=Singleton):
     growpy_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
     growpy_etc = growpy_path + '/etc'
     growpy_data = growpy_path + '/data'
@@ -24,12 +24,13 @@ class Config(Singleton):
         cfg.read('/etc/growpy.conf')
     except parser.Error as e:
         print(e.message())
+        exit(1)
 
     config = {
         'core': {
             'pidfile': 'growpy.pid',
             'debug': True,
-            'aes_key': '9d8j6mfwy4n7c8!nffr'
+            'aes_key': 'growpy'
         },
         'database': {
             'provider': 'sqlite',
