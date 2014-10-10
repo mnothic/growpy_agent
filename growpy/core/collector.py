@@ -16,14 +16,14 @@ class Collector():
     def main(cls):
         store = Store()
         for n in store.get_node_list():
-            fsc = FSCollector(n)
+            fsc = FSCollector(n, AESCipher(config['core']['aes_key']))
             fsc.start()
 
 
 class FSCollector(Thread):
 
-    def __init__(self, node):
-        self.cypher = AESCipher(config['core']['aes_keey'])
+    def __init__(self, node, cypher):
+        self.cypher = cypher
         self.node = node
         self.node.node_password = self.cypher.decrypt(self.node.node_password)
         self._ssh = SSHClient()
@@ -34,10 +34,10 @@ class FSCollector(Thread):
             self.collecting_node_info()
 
     def ssh_connect(self):
-        """
-
-        :param Node:
-        :return:
+        """ This wrap the ssh connection process and handle the errors
+        return self to chain syntax.
+        :param: None
+        :return: self
         """
         try:
             self._ssh.set_missing_host_key_policy(AutoAddPolicy())
@@ -57,12 +57,13 @@ class FSCollector(Thread):
         return self
 
     def collecting_node_info(self):
+        """ take parsed node information stat and set into persistence broker
+        """
         self.set_fs_list(self.parse_stdout())
 
     def parse_stdout(self):
-        """
-        parse all standard df output
-        :param: output
+        """ this function parse all standard df output and return the a tokenized list
+        :param: None
         :return: list
         """
         if self.node.node_os_name == 'HP-UX':

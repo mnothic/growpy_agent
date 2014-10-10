@@ -6,7 +6,7 @@ import os
 from growpy.core.base import Singleton
 
 
-class Config(Singleton):
+class Config(metaclass=Singleton):
     growpy_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
     growpy_etc = growpy_path + '/etc'
     growpy_data = growpy_path + '/data'

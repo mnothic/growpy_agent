@@ -25,6 +25,18 @@ class TestCore(unittest.TestCase):
         self.assertEqual(a.name, "B", "a.name must be B")
         self.assertEqual(a.address, b.address, "a is: {} and b is: {}".format(a.address, b.address))
 
+    def test_config(self):
+        pass
+
+    def test_collector(self):
+        pass
+
+    def test_fs_exist(self):
+        pass
+
+    def test_set_fs_list(self):
+        pass
+
 
 class TestSingle(metaclass=Singleton):
 
