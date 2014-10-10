@@ -24,12 +24,13 @@ class Config(metaclass=Singleton):
         cfg.read('/etc/growpy.conf')
     except parser.Error as e:
         print(e.message())
+        exit(1)
 
     config = {
         'core': {
             'pidfile': 'growpy.pid',
             'debug': True,
-            'aes_key': '9d8j6mfwy4n7c8!nffr'
+            'aes_key': 'growpy'
         },
         'database': {
             'provider': 'sqlite',
@@ -42,7 +43,7 @@ class Config(metaclass=Singleton):
             'hour': '0'
         }
     }
-
+    """refactory this bullshit with pythonic iterator"""
     def __init__(self):
         for section, value in self.config.items():
             for option in value.keys():
