@@ -43,8 +43,9 @@ class Config(metaclass=Singleton):
             'hour': '0'
         }
     }
-    """refactory this bullshit with pythonic iterator"""
+
     def __init__(self):
+        """refactory this bullshit with pythonic iterator"""
         for section, value in self.config.items():
             for option in value.keys():
                 try:
