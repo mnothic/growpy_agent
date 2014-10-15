@@ -28,11 +28,22 @@ class Store():
         self.session.commit()
 
     def save_node(self, node):
+        """
+        Persist the node
+        @param node:
+        @return: None
+        """
         if node is not None:
             self.session.add(node)
             self.session.commit()
 
     def save_fs(self, node, fs):
+        """
+        persist the fs by parent node
+        @param node: Node instance
+        @param fs: fs of node instance
+        @return: None
+        """
         if node is not None and fs is not None:
             try:
                 f = self.session.query(Filesystem).filter(Filesystem.fs_name == fs.name,
@@ -55,12 +66,29 @@ class Store():
             self.save_status(fs.id, fs.size, fs.used)
 
     def save_status(self, fs_id, size, used):
+        """
+        persiste the variable stats of fs by parent fs
+        @param fs_id: fs id
+        @param size: fs size
+        @param used: fs utilization size
+        @return: None
+        """
         status = Status(fs_id, size, used)
         self.session.add(status)
         self.session.commit()
 
     def get_node_list(self):
+        """
+        This method return all instances of Node in a list of object
+        Described by Model.Node()
+        @return: list of Node
+        """
         return self.session.query(Node).all()
 
     def get_fs_list(self, node):
+        """
+        This method return all instances of the fs in the parent node
+        @param node: parent node
+        @return: list of FS
+        """
         return self.session.query(Filesystem).filter(Filesystem.node_id == node.node_id).all()
