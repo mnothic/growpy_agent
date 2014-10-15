@@ -65,9 +65,10 @@ class FSCollector(Thread):
         self.set_fs_list(self.parse_stdout())
 
     def parse_stdout(self):
-        """ this function parse all standard df output and return the a tokenized list
-        :param: None
-        :return: list
+        """ Parser stdout from node df information
+
+        This function parse all standard df output and return the a tokenized list
+        @return: list
         """
         if self.node.node_os_name == 'HP-UX':
             cmd = 'bdf'
