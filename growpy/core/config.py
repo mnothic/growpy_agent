@@ -3,6 +3,7 @@ __revision__ = "1"
 __version__ = "1.0"
 __author__ = "theManda"
 import os
+from configparser import ConfigParser
 from growpy.core.base import Singleton
 
 
@@ -12,17 +13,11 @@ class Config(metaclass=Singleton):
     growpy_data = growpy_path + '/data'
     growpy_scripts = growpy_path + '/scripts'
     try:
-        import configparser
-    except ImportError:
-        import ConfigParser as configparser
-
-    parser = configparser
-    try:
-        cfg = parser.ConfigParser()
+        cfg = ConfigParser()
         cfg.read(growpy_etc + '/growpy.conf')
         cfg.read('/usr/local/etc/growpy.conf')
         cfg.read('/etc/growpy.conf')
-    except parser.Error as e:
+    except ConfigParser.Error as e:
         print(e.message())
         exit(1)
 
@@ -33,8 +28,7 @@ class Config(metaclass=Singleton):
             'aes_key': 'growpy'
         },
         'database': {
-            'provider': 'sqlite',
-            'dbstring': growpy_data + '/growpy.db'
+            'db_url': 'sqlite:///growypy.db',
         },
         'scheduler': {
             'daemon': False,

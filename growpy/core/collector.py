@@ -14,7 +14,7 @@ class Collector():
 
     @classmethod
     def main(cls):
-        store = Store()
+        store = Store(dburl=config['database']['dburl'])
         for n in store.get_node_list():
             fsc = FSCollector(n, AESCipher(config['core']['aes_key']))
             fsc.start()

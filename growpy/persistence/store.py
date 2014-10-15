@@ -4,27 +4,26 @@ __version__ = "$"
 __author__ = "theManda"
 
 from growpy.persistence.model import *
-from growpy.core.config import config
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 
 
 class Store():
-
-    def __init__(self):
+    """
+    This class contain the logic to persist the information
+    Collected by collector and implement save and get methods
+    """
+    def __init__(self, db_url='sqlite:///growpy.db', debug=False):
         """
-        strConnect = 'sqlite:///growpy.db'
+        Initialization of session factory
         """
-        if config['database']['provider'] == 'sqlite':
-            str_connect = config['database']['provider']
-            str_connect += ':///'
-            str_connect += config['database']['dbstring']
-        else:
-            str_connect = config['database']['provider']
-            str_connect += ':///'
-            str_connect += config['database']['dbstring']
-
-        ng = create_engine(str_connect, echo=config['core']['debug'])
+        ng = create_engine(db_url, echo=debug)
         session_factory = sessionmaker(bind=ng)
         self.session = session_factory()
+        """
+        Created the Scheme if not exist, in the future move
+        to exec into the Exception.
+        """
         Base.metadata.create_all(ng, checkfirst=True)
         self.session.commit()
 
