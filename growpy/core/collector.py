@@ -34,10 +34,10 @@ class FSCollector(Thread):
             self.collecting_node_info()
 
     def ssh_connect(self):
-        """ This wrap the ssh connection process and handle the errors
-        return self to chain syntax.
-        :param: None
-        :return: self
+        """ This wrap the ssh connection process
+
+        handle the errors and return self to chain syntax.
+        @return: self
         """
         try:
             self._ssh.set_missing_host_key_policy(AutoAddPolicy())
@@ -57,7 +57,10 @@ class FSCollector(Thread):
         return self
 
     def collecting_node_info(self):
-        """ take parsed node information stat and set into persistence broker
+        """ collector of node info
+
+        take parsed node information stat and set into persistence broker
+
         """
         self.set_fs_list(self.parse_stdout())
 
