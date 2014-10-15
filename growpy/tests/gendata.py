@@ -1,5 +1,5 @@
 from growpy.persistence.store import Store
-from growpy.persistence.orm import Status
+from growpy.persistence.model import Status
 from calendar import monthrange
 from datetime import datetime
 from sqlalchemy import desc

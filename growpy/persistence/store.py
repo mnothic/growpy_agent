@@ -3,7 +3,7 @@ __revision__ = "$"
 __version__ = "$"
 __author__ = "theManda"
 
-from growpy.persistence.orm import *
+from growpy.persistence.model import *
 from growpy.core.config import config
 
 
