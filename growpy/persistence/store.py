@@ -80,7 +80,7 @@ class Store():
     def get_node_list(self):
         """
         This method return all instances of Node in a list of object
-        Described by Model.Node()
+        Described by Model.Node
         @return: list of Node
         """
         return self.session.query(Node).all()
@@ -89,6 +89,6 @@ class Store():
         """
         This method return all instances of the fs in the parent node
         @param node: parent node
-        @return: list of FS
+        @return: list of Model.FS
         """
         return self.session.query(Filesystem).filter(Filesystem.node_id == node.node_id).all()
