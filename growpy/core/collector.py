@@ -57,10 +57,10 @@ class FSCollector(Thread):
         return self
 
     def collecting_node_info(self):
-        """ collector of node info
+        """ Collector of node info
 
-        take parsed node information stat and set into persistence broker
-
+        This function only take a list from parse_stdout() and save all stats parsed into the database
+        is a proxy between parse_stdout() and set_fs_list()
         """
         self.set_fs_list(self.parse_stdout())
 
@@ -103,7 +103,12 @@ class FSCollector(Thread):
     @staticmethod
     def _fs_exist(fs_list, fs):
         """
-        Check for a existent fs
+        This function is a boolean self helper
+
+        For validate the existence of a fs or not and return bool
+        @param fs_list:
+        @param fs:
+        @return: bool
         """
         if len(fs_list) == 0:
             return False
