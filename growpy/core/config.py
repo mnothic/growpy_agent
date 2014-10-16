@@ -3,7 +3,7 @@ __revision__ = "1"
 __version__ = "1.0"
 __author__ = "theManda"
 import os
-from configparser import ConfigParser
+from configparser import ConfigParser, Error, NoOptionError, NoSectionError
 from growpy.core.base import Singleton
 
 
@@ -17,7 +17,7 @@ class Config(metaclass=Singleton):
         cfg.read(growpy_etc + '/growpy.conf')
         cfg.read('/usr/local/etc/growpy.conf')
         cfg.read('/etc/growpy.conf')
-    except ConfigParser.Error as e:
+    except Error as e:
         print(e.message())
         exit(1)
 
@@ -44,7 +44,7 @@ class Config(metaclass=Singleton):
             for option in value.keys():
                 try:
                     cfg_val = self.cfg.get(str(section), str(option))
-                except(self.parser.NoSectionError, self.parser.NoOptionError) as e:
+                except(NoSectionError, NoOptionError) as e:
                     print(e.message)
                     continue
                 if option == 'debug':
