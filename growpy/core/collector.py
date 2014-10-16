@@ -82,7 +82,6 @@ class FSCollector(Thread):
         except SSHException:
             print('ssh error')
         fs_list = []
-        i = 0
         for rs in df.split('\n'):
             row = rs.split()
             try:
@@ -99,7 +98,6 @@ class FSCollector(Thread):
                     fs = FS(row[0], row[5], row[1], row[2])
                 if not self._fs_exist(fs_list, fs):
                     fs_list.append(fs)
-            i += 1
         return fs_list
 
     @staticmethod
