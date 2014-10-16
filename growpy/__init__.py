@@ -15,6 +15,14 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 daemon = False
 process = False
 
+""" Usage: growpy [option]
+Options:
+    -d
+    -p
+    -h | --help
+    --version
+"""
+
 
 def main():
     try:
