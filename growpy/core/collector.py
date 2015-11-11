@@ -105,7 +105,7 @@ class FSCollector(Thread):
             return False
 
         for fs_instance in fs_list:
-            if fs_instance.get_name() == fs.name:
+            if fs_instance.name == fs.fs_name:
                 return True
 
         return False
