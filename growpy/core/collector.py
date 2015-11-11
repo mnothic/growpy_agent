@@ -84,7 +84,7 @@ class FSCollector(Thread):
                 if 'Filesystem' in row[0][0:11]:
                     continue
             except IndexError:
-                pass
+                raise "IndexError"
             if row:
                 if len(row) == 1:
                     aux = row[0]
