@@ -89,9 +89,9 @@ class FSCollector(Thread):
                 if len(row) == 1:
                     aux = row[0]
                 elif len(row) == 5:
-                    fs = FS(aux, row[4], row[0], row[1])
+                    fs = FS(name=aux, mount_on=row[4], used=row[0], size=row[1])
                 else:
-                    fs = FS(row[0], row[5], row[1], row[2])
+                    fs = FS(name=row[0], mount_on=row[5], used=row[1], size=row[2])
                 if not self._fs_exist(fs_list, fs):
                     fs_list.append(fs)
             i += 1
@@ -105,7 +105,7 @@ class FSCollector(Thread):
             return False
 
         for fs_instance in fs_list:
-            if fs_instance.get_name() == fs.get_name():
+            if fs_instance.get_name() == fs.name:
                 return True
 
         return False
