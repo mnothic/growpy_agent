@@ -10,7 +10,7 @@ from growpy.core.base import FS, AESCipher
 from growpy.core.config import config
 
 
-class Collector():
+class Collector(object):
 
     @classmethod
     def main(cls):
