@@ -7,7 +7,7 @@ from growpy.persistence.orm import Filesystem, Status, Node
 from growpy.core.config import config
 
 
-class Store():
+class Store(object):
 
     def __init__(self):
         """

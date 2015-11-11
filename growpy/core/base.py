@@ -17,7 +17,7 @@ class Singleton(object):
         return cls._instance
 
 
-class AESCipher:
+class AESCipher(object):
     def __init__(self, key):
         self.bs = 32
         if len(key) >= 32:
