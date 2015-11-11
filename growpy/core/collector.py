@@ -102,7 +102,7 @@ class FSCollector(Thread):
         """
         Check for a existent fs
         """
-        if len(fs_list) == 0:
+        if not fs_list:
             return False
 
         for fs_instance in fs_list:
