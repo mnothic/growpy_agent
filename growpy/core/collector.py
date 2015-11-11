@@ -13,7 +13,7 @@ from growpy.core.config import config
 class Collector():
 
     @classmethod
-    def main(self):
+    def main(cls):
         store = Store()
         for n in store.get_node_list():
             fsc = FSCollector(n)
