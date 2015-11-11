@@ -36,24 +36,24 @@ class Store():
     def save_fs(self, node, fs):
         if node is not None and fs is not None:
             try:
-                f = self.session.query(Filesystem).filter(Filesystem.fs_name == fs.get_name(),
-                                                          Filesystem.node_id == node.node_id).first()
+                f = self.session.query(Filesystem).filter(Filesystem.fs_name == fs.name,
+                                                          Filesystem.node_id == node.id).first()
                 if f is None:
-                    f = Filesystem(node.node_id, fs.get_name(), fs.get_mount_on())
+                    f = Filesystem(node.node_id, fs.name, fs.mount_on)
                     self.session.add(f)
                     self.session.commit()
                     self.session.refresh(f)
-                    fs.set_id(f.fs_id)
+                    fs.id = f.fs_id
                 else:
                     fs.set_id(f.fs_id)
             except:
-                f = Filesystem(node.node_id, fs.get_name(), fs.get_mount_on())
+                f = Filesystem(node.node_id, fs.name, fs.mount_on)
                 self.session.add(f)
                 self.session.commit()
                 self.session.refresh(f)
-                fs.set_id(f.fs_id)
+                fs.id = f.fs_id
                 raise
-            self.save_status(fs.get_id(), fs.get_size(), fs.get_used())
+            self.save_status(fs.id, fs.size, fs.used)
 
     def save_status(self, fs_id, size, used):
         status = Status(fs_id, size, used)
