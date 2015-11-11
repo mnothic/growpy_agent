@@ -9,10 +9,10 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import date
 
-Base = declarative_base()
+base = declarative_base()
 
 
-class Node(Base):
+class Node(base):
     __tablename__ = 'node'
     node_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     node_name = Column(String, unique=True, nullable=False)
@@ -31,7 +31,7 @@ class Node(Base):
                               back_populates="node")
 
 
-class Filesystem(Base):
+class Filesystem(base):
     __tablename__ = 'filesystem'
     fs_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     node_id = Column(Integer, ForeignKey('node.node_id'))
@@ -49,7 +49,7 @@ class Filesystem(Base):
                           back_populates='filesystem')
 
     
-class Status(Base):
+class Status(base):
     __tablename__ = 'status'
     status_id = Column(Integer, primary_key=True, unique=True, nullable=False)
     fs_id = Column(Integer, ForeignKey('filesystem.fs_id'))
