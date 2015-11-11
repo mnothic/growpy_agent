@@ -85,7 +85,7 @@ class FSCollector(Thread):
                     continue
             except IndexError:
                 pass
-            if len(row) > 0:
+            if row:
                 if len(row) == 1:
                     aux = row[0]
                 elif len(row) == 5:
