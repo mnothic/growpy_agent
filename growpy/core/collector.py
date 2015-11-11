@@ -97,7 +97,8 @@ class FSCollector(Thread):
             i += 1
         return fs_list
 
-    def _fs_exist(self, fs_list, fs):
+    @staticmethod
+    def _fs_exist(fs_list, fs):
         """
         Check for a existent fs
         """
